@@ -1,6 +1,26 @@
 import axios from 'axios';
 
-const API_BASE = import.meta.env.VITE_API_URL || '/api';
+/**
+ * Resolves and normalizes the backend API base URL.
+ * Supports:
+ * - Localhost dev server (Vite proxy fallback when empty)
+ * - Explicit VITE_API_URL from .env / .env.production / Vercel
+ * - Automatically strips trailing slashes and appends /api if omitted.
+ */
+function getApiBaseUrl() {
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (!envUrl || envUrl.trim() === '') {
+    return '/api';
+  }
+
+  let cleanUrl = envUrl.trim().replace(/\/+$/, '');
+  if (!cleanUrl.endsWith('/api')) {
+    cleanUrl = `${cleanUrl}/api`;
+  }
+  return cleanUrl;
+}
+
+const API_BASE = getApiBaseUrl();
 
 const apiClient = axios.create({
   baseURL: API_BASE,
