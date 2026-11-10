@@ -18,6 +18,12 @@ import ZipExtractorPage from './pages/tools/ZipExtractorPage';
 import ImageConverterPage from './pages/tools/ImageConverterPage';
 import VideoToImagePage from './pages/tools/VideoToImagePage';
 
+// AVINZ Creative Studio Pages
+import VideoEditorPage from './pages/studio/VideoEditorPage';
+import TemplateLibraryPage from './pages/studio/TemplateLibraryPage';
+import AiNoiseRemoverPage from './pages/tools/AiNoiseRemoverPage';
+import AudioStudioPage from './pages/tools/AudioStudioPage';
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -32,7 +38,13 @@ export default function App() {
             <Route path="/batch/:batchId/dashboard" element={<DashboardPage />} />
             <Route path="/batch/:batchId/results" element={<ResultsPage />} />
 
-            {/* New File Utility Tools Routes */}
+            {/* AVINZ Creative Studio Routes */}
+            <Route path="/studio/editor" element={<VideoEditorPage />} />
+            <Route path="/studio/templates" element={<TemplateLibraryPage />} />
+            <Route path="/tools/ai-noise-remover" element={<AiNoiseRemoverPage />} />
+            <Route path="/tools/audio-studio" element={<AudioStudioPage />} />
+
+            {/* File Utility Tools Routes */}
             <Route path="/tools" element={<ToolsDashboardPage />} />
             <Route path="/tools/image-reducer" element={<ImageReducerPage />} />
             <Route path="/tools/passport-photo" element={<PassportPhotoPage />} />
@@ -49,15 +61,15 @@ export default function App() {
 
         <footer className="py-6 border-t border-slate-800/80 text-center text-xs text-slate-500 bg-navy-950/60">
           <div className="max-w-7xl mx-auto px-4 flex flex-wrap items-center justify-between gap-4">
-            <p>© {new Date().getFullYear()} FASTBATCH — Smart Bulk Video Merger &amp; File Tools Platform. Built with FFmpeg &amp; MERN.</p>
+            <p>© {new Date().getFullYear()} AVINZ ALL-IN-ONE CREATIVE STUDIO. Built with MERN &amp; FFmpeg.</p>
             <div className="flex items-center gap-4 text-slate-400">
-              <span>Free &amp; Open Source</span>
+              <span>Free Video Editor</span>
               <span>•</span>
-              <span>8 File Utility Tools</span>
+              <span>1000 Templates</span>
               <span>•</span>
-              <span>Stream-Copy Engine</span>
+              <span>AI Noise Suppression</span>
               <span>•</span>
-              <span>Zero Logging</span>
+              <span>Zero Logging (10m Cleanup)</span>
             </div>
           </div>
         </footer>

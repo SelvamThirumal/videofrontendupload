@@ -280,6 +280,103 @@ export const api = {
     return res.data;
   },
 
+  // ==========================================
+  // AVINZ Creative Studio Endpoints
+  // ==========================================
+
+  /**
+   * AI Background Noise Remover (Audio & Video)
+   */
+  async removeAudioNoise({ file, mode, customNoiseFloor, customVoiceBoost, highpassFreq, lowpassFreq, onUploadProgress, cancelSignal }) {
+    const formData = new FormData();
+    formData.append('media', file);
+    if (mode) formData.append('mode', mode);
+    if (customNoiseFloor !== undefined) formData.append('customNoiseFloor', customNoiseFloor);
+    if (customVoiceBoost !== undefined) formData.append('customVoiceBoost', customVoiceBoost);
+    if (highpassFreq !== undefined) formData.append('highpassFreq', highpassFreq);
+    if (lowpassFreq !== undefined) formData.append('lowpassFreq', lowpassFreq);
+
+    const res = await apiClient.post('/studio/noise-remover', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      onUploadProgress,
+      signal: cancelSignal
+    });
+    return res.data;
+  },
+
+  /**
+   * Audio Studio: Mix Multiple Audio Tracks
+   */
+  async mixAudioTracks({ audioFiles, tracksConfig, outputFormat, onUploadProgress, cancelSignal }) {
+    const formData = new FormData();
+    for (const f of audioFiles) {
+      formData.append('audioTracks', f);
+    }
+    if (tracksConfig) {
+      formData.append('tracksJson', JSON.stringify(tracksConfig));
+    }
+    if (outputFormat) {
+      formData.append('outputFormat', outputFormat);
+    }
+
+    const res = await apiClient.post('/studio/audio/mix', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      onUploadProgress,
+      signal: cancelSignal
+    });
+    return res.data;
+  },
+
+  /**
+   * Audio Studio: Extract Audio from Video
+   */
+  async extractAudioFromVideo({ videoFile, format, onUploadProgress, cancelSignal }) {
+    const formData = new FormData();
+    formData.append('video', videoFile);
+    if (format) formData.append('format', format);
+
+    const res = await apiClient.post('/studio/audio/extract', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      onUploadProgress,
+      signal: cancelSignal
+    });
+    return res.data;
+  },
+
+  /**
+   * Video Editor Export Studio
+   */
+  async exportStudioVideo({ mediaFiles, timeline, resolution, aspectRatio, fps, format, videoBitrate, audioBitrate, onUploadProgress, cancelSignal }) {
+    const formData = new FormData();
+    for (const f of mediaFiles) {
+      formData.append('mediaFiles', f);
+    }
+    if (timeline) {
+      formData.append('timelineJson', JSON.stringify(timeline));
+    }
+    if (resolution) formData.append('resolution', resolution);
+    if (aspectRatio) formData.append('aspectRatio', aspectRatio);
+    if (fps) formData.append('fps', fps);
+    if (format) formData.append('format', format);
+    if (videoBitrate) formData.append('videoBitrate', videoBitrate);
+    if (audioBitrate) formData.append('audioBitrate', audioBitrate);
+
+    const res = await apiClient.post('/studio/video/export', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      onUploadProgress,
+      signal: cancelSignal
+    });
+    return res.data;
+  },
+
+  /**
+   * Immediate Privacy Purge of Session Files
+   */
+  async clearStudioSession(sessionId) {
+    const res = await apiClient.delete(`/studio/clear-session/${sessionId}`);
+    return res.data;
+  },
+
   /**
    * Generates download URL for tool outputs
    */

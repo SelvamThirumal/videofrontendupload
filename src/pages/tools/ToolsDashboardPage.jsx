@@ -14,10 +14,67 @@ import {
   Sparkles,
   ArrowRight,
   ShieldCheck,
-  Zap
+  Zap,
+  Mic,
+  Volume2,
+  Video,
+  LayoutTemplate,
+  Wand2
 } from 'lucide-react';
 
+const CATEGORIES = [
+  'All',
+  'Video Editor',
+  'Video Tools',
+  'Template Library',
+  'Audio Tools',
+  'Image Tools',
+  'PDF Tools',
+  'Word & Excel Tools',
+  'ZIP Tools'
+];
+
 const TOOLS = [
+  {
+    id: 'studio-editor',
+    title: 'Professional Video Editor',
+    description: 'CapCut & VN-inspired multi-track timeline editor. Multi-video/audio tracks, split, trim, 25+ effects, transitions, text titles & 4K export.',
+    category: 'Video Editor',
+    icon: Video,
+    path: '/studio/editor',
+    badge: 'Flagship Studio',
+    color: 'from-purple-500/20 to-pink-500/20 text-purple-400 border-purple-500/30'
+  },
+  {
+    id: 'template-library',
+    title: '1000 Free Video Templates',
+    description: '10 categories × 100 editable templates: Reels, Shorts, Cinematic, Birthday, Wedding, Travel, Devotional & Ads with 1-click timeline import.',
+    category: 'Template Library',
+    icon: LayoutTemplate,
+    path: '/studio/templates',
+    badge: '1000 Presets',
+    color: 'from-pink-500/20 to-rose-500/20 text-pink-400 border-pink-500/30'
+  },
+  {
+    id: 'ai-noise-remover',
+    title: 'AI Background Noise Remover',
+    description: 'Eliminate AC hum, fan noise, traffic, wind, and typing from audio and video files. Speech enhancement with dual waveform preview.',
+    category: 'Audio Tools',
+    icon: Wand2,
+    path: '/tools/ai-noise-remover',
+    badge: 'AI Speech Clean',
+    color: 'from-cyan-500/20 to-blue-500/20 text-cyan-400 border-cyan-500/30'
+  },
+  {
+    id: 'audio-studio',
+    title: 'Audio Editing Studio',
+    description: 'Multi-track audio workspace. Upload MP3/WAV, trim, split, volume mixing, fade-in/out, live mic voiceover, and royalty-free SFX stems.',
+    category: 'Audio Tools',
+    icon: Mic,
+    path: '/tools/audio-studio',
+    badge: 'Multitrack DAW',
+    color: 'from-violet-500/20 to-indigo-500/20 text-violet-400 border-violet-500/30'
+  },
   {
     id: 'video-merger',
     title: 'Smart Bulk Video Merger',
@@ -27,6 +84,16 @@ const TOOLS = [
     path: '/',
     badge: 'Core Engine',
     color: 'from-indigo-500/20 to-purple-500/20 text-indigo-400 border-indigo-500/30'
+  },
+  {
+    id: 'video-to-image',
+    title: 'Video to Image Converter',
+    description: 'Extract crisp frames at specific timestamps, periodic intervals (1s/5s/10s), auto-thumbnails, and contact sheets into ZIP.',
+    category: 'Video Tools',
+    icon: Camera,
+    path: '/tools/video-to-image',
+    badge: 'FFmpeg Extractor',
+    color: 'from-purple-500/20 to-pink-500/20 text-purple-400 border-purple-500/30'
   },
   {
     id: 'image-reducer',
@@ -49,6 +116,16 @@ const TOOLS = [
     color: 'from-blue-500/20 to-cyan-500/20 text-blue-400 border-blue-500/30'
   },
   {
+    id: 'image-converter',
+    title: 'Image Format Converter',
+    description: 'Convert between JPG, PNG, WebP, GIF, TIFF, and AVIF in bulk with custom quality settings and ZIP download.',
+    category: 'Image Tools',
+    icon: RefreshCw,
+    path: '/tools/image-converter',
+    badge: 'Multi-Format',
+    color: 'from-amber-500/20 to-yellow-500/20 text-amber-400 border-amber-500/30'
+  },
+  {
     id: 'pdf-to-word',
     title: 'PDF to Word Converter',
     description: 'Convert PDF documents into editable Word (.docx) files preserving formatting, tables, and optional OCR support.',
@@ -57,6 +134,16 @@ const TOOLS = [
     path: '/tools/pdf-to-word',
     badge: 'Editable DOCX',
     color: 'from-rose-500/20 to-red-500/20 text-rose-400 border-rose-500/30'
+  },
+  {
+    id: 'pdf-to-zip',
+    title: 'PDF to ZIP Converter',
+    description: 'Bundle single or multiple PDF documents into an uncorrupted ZIP archive with custom naming and instant download.',
+    category: 'PDF Tools',
+    icon: Archive,
+    path: '/tools/pdf-to-zip',
+    badge: 'Lossless Bundle',
+    color: 'from-orange-500/20 to-amber-500/20 text-orange-400 border-orange-500/30'
   },
   {
     id: 'word-to-excel',
@@ -69,48 +156,16 @@ const TOOLS = [
     color: 'from-emerald-500/20 to-green-500/20 text-emerald-400 border-emerald-500/30'
   },
   {
-    id: 'pdf-to-zip',
-    title: 'PDF to ZIP Converter',
-    description: 'Package single or bulk PDF documents into a clean ZIP archive with custom naming without quality compression.',
-    category: 'PDF Tools',
-    icon: Archive,
-    path: '/tools/pdf-to-zip',
-    badge: 'Bulk Packager',
-    color: 'from-amber-500/20 to-orange-500/20 text-amber-400 border-amber-500/30'
-  },
-  {
     id: 'zip-extractor',
     title: 'ZIP Extractor & Inspector',
-    description: 'Extract ZIP archives safely with ZIP-Slip path traversal protection. View file list and download single or all files.',
+    description: 'Safely unpack and inspect ZIP archives with ZIP-Slip & ZIP-bomb protection. Download individual files or all as ZIP.',
     category: 'ZIP Tools',
     icon: FolderArchive,
     path: '/tools/zip-extractor',
-    badge: 'ZIP-Slip Safe',
-    color: 'from-violet-500/20 to-purple-500/20 text-violet-400 border-violet-500/30'
-  },
-  {
-    id: 'image-converter',
-    title: 'Image Format Converter',
-    description: 'Convert images seamlessly between JPG, PNG, WebP, GIF, BMP, and TIFF with custom quality and batch downloading.',
-    category: 'Image Tools',
-    icon: RefreshCw,
-    path: '/tools/image-converter',
-    badge: 'Multi-Format',
-    color: 'from-cyan-500/20 to-blue-500/20 text-cyan-400 border-cyan-500/30'
-  },
-  {
-    id: 'video-to-image',
-    title: 'Video to Image Converter',
-    description: 'Extract frames at custom timestamps, interval sequences (1s/5s/10s), or generate contact sheet storyboards from videos.',
-    category: 'Video Tools',
-    icon: Camera,
-    path: '/tools/video-to-image',
-    badge: 'FFmpeg Frames',
-    color: 'from-fuchsia-500/20 to-pink-500/20 text-fuchsia-400 border-fuchsia-500/30'
+    badge: 'Protected Unpack',
+    color: 'from-indigo-500/20 to-blue-500/20 text-indigo-400 border-indigo-500/30'
   }
 ];
-
-const CATEGORIES = ['All', 'Video Tools', 'Image Tools', 'PDF Tools', 'Word & Excel Tools', 'ZIP Tools'];
 
 export default function ToolsDashboardPage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
@@ -126,85 +181,87 @@ export default function ToolsDashboardPage() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10 animate-fade-in">
       {/* Hero Header */}
-      <div className="text-center max-w-3xl mx-auto mb-12">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-primary/10 border border-brand-primary/30 text-brand-primary text-xs font-semibold uppercase tracking-wider mb-4">
+      <div className="text-center space-y-4 max-w-3xl mx-auto">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-purple-500/10 to-indigo-500/10 border border-purple-500/20 text-purple-300 text-xs font-semibold">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>All-in-One File Tools Platform</span>
+          <span>AVINZ ALL-IN-ONE CREATIVE STUDIO</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-          Powerful Utilities for Every File
+        <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-100">
+          Professional Creative Studio &amp; <br />
+          <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 bg-clip-text text-transparent">
+            File Utility Platform
+          </span>
         </h1>
-        <p className="text-sm sm:text-base text-slate-400 mt-3 max-w-xl mx-auto leading-relaxed">
-          High-performance, secure file tools running on-premise with zero data retention and automatic 10-minute cleanup.
+        <p className="text-sm sm:text-base text-slate-400">
+          Browser-based video editing, 1000 free templates, AI noise suppression, audio workstation, and fast document processing. All 100% free with automatic 10-minute privacy cleanup.
         </p>
 
         {/* Search Bar */}
-        <div className="mt-8 relative max-w-md mx-auto">
-          <Search className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
+        <div className="relative max-w-md mx-auto pt-2">
+          <Search className="w-5 h-5 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search tools (e.g. compress, passport, excel, docx)..."
-            className="w-full pl-11 pr-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700/80 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition"
+            placeholder="Search tools, formats, or studio features..."
+            className="w-full pl-11 pr-4 py-3 bg-navy-900/90 border border-slate-800 rounded-2xl text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all shadow-lg"
           />
         </div>
+      </div>
 
-        {/* Category Filter Pills */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mt-6">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setSelectedCategory(cat)}
-              className={`text-xs font-semibold px-3.5 py-1.5 rounded-xl transition-all duration-200 ${
-                selectedCategory === cat
-                  ? 'bg-brand-primary text-white shadow-md shadow-indigo-500/20'
-                  : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+      {/* Category Tabs */}
+      <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+        {CATEGORIES.map((cat) => (
+          <button
+            key={cat}
+            onClick={() => setSelectedCategory(cat)}
+            className={`px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-medium whitespace-nowrap transition-all ${
+              selectedCategory === cat
+                ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/25 border border-purple-400/30'
+                : 'bg-navy-900/60 text-slate-400 hover:text-slate-200 hover:bg-navy-900 border border-slate-800/80'
+            }`}
+          >
+            {cat}
+          </button>
+        ))}
       </div>
 
       {/* Tools Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredTools.map((tool) => {
-          const Icon = tool.icon;
+          const IconComponent = tool.icon;
           return (
             <Link
               key={tool.id}
               to={tool.path}
-              className="glass-card rounded-2xl p-6 border border-slate-800 hover:border-slate-700 bg-slate-900/50 hover:bg-slate-900/80 transition-all duration-200 flex flex-col justify-between group shadow-lg hover:shadow-indigo-500/10 hover:-translate-y-0.5"
+              className="group relative bg-navy-900/60 border border-slate-800/80 hover:border-purple-500/40 rounded-2xl p-6 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-500/10 hover:-translate-y-1 flex flex-col justify-between"
             >
-              <div>
-                <div className="flex items-center justify-between gap-3 mb-4">
-                  <div className={`w-12 h-12 rounded-xl bg-gradient-to-tr ${tool.color} border flex items-center justify-center shadow-inner group-hover:scale-105 transition-transform`}>
-                    <Icon className="w-6 h-6" />
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div
+                    className={`w-12 h-12 rounded-xl bg-gradient-to-br ${tool.color} border flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
+                  >
+                    <IconComponent className="w-6 h-6" />
                   </div>
-                  {tool.badge && (
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 border border-slate-700/80">
-                      {tool.badge}
-                    </span>
-                  )}
+                  <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-slate-800/80 text-slate-300 border border-slate-700/60">
+                    {tool.badge}
+                  </span>
                 </div>
 
-                <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1">
-                  {tool.category}
+                <div>
+                  <h3 className="text-lg font-bold text-slate-100 group-hover:text-purple-300 transition-colors">
+                    {tool.title}
+                  </h3>
+                  <p className="text-xs text-slate-400 mt-2 line-clamp-3 leading-relaxed">
+                    {tool.description}
+                  </p>
                 </div>
-                <h3 className="text-lg font-bold text-white group-hover:text-indigo-300 transition-colors">
-                  {tool.title}
-                </h3>
-                <p className="text-xs text-slate-400 mt-2 leading-relaxed">
-                  {tool.description}
-                </p>
               </div>
 
-              <div className="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs font-semibold text-brand-primary group-hover:text-indigo-300">
-                <span>Launch Tool</span>
+              <div className="pt-6 border-t border-slate-800/60 flex items-center justify-between text-xs font-semibold text-purple-400 group-hover:text-purple-300 transition-colors">
+                <span>Open Tool</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>
             </Link>
@@ -213,30 +270,36 @@ export default function ToolsDashboardPage() {
       </div>
 
       {filteredTools.length === 0 && (
-        <div className="text-center py-16 text-slate-500">
-          <p className="text-base font-semibold">No tools found matching "{searchQuery}"</p>
+        <div className="text-center py-16 space-y-3">
+          <p className="text-slate-400 text-sm">No tools found matching "{searchQuery}"</p>
           <button
-            onClick={() => { setSearchQuery(''); setSelectedCategory('All'); }}
-            className="text-xs text-brand-primary mt-2 underline"
+            onClick={() => {
+              setSearchQuery('');
+              setSelectedCategory('All');
+            }}
+            className="text-xs text-purple-400 hover:text-purple-300 font-semibold"
           >
-            Clear filters
+            Reset Filters
           </button>
         </div>
       )}
 
-      {/* Trust & Performance Footer Badges */}
-      <div className="mt-16 pt-8 border-t border-slate-800/80 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500">
-        <div className="flex items-center gap-2">
-          <ShieldCheck className="w-4 h-4 text-emerald-400" />
-          <span>Strict 10-Minute Temporary File Purge</span>
+      {/* Privacy Banner */}
+      <div className="bg-navy-900/40 border border-slate-800 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
+            <ShieldCheck className="w-5 h-5" />
+          </div>
+          <div>
+            <p className="font-semibold text-slate-200 text-sm">100% Privacy-Guaranteed File Processing</p>
+            <p>
+              Uploaded media, editor projects, and generated outputs are kept in isolated temporary sandboxes and automatically deleted after 10 minutes.
+            </p>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 text-slate-500 shrink-0">
           <Zap className="w-4 h-4 text-amber-400" />
-          <span>High-Speed Native Node.js & Sharp/FFmpeg Execution</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <Sparkles className="w-4 h-4 text-brand-secondary" />
-          <span>Zero Server Data Logging</span>
+          <span>Zero Server Storage • No Account Required</span>
         </div>
       </div>
     </div>
