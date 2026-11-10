@@ -136,6 +136,155 @@ export const api = {
    */
   getDownloadAllZipUrl(batchId) {
     return `${API_BASE}/batches/${batchId}/download-all`;
+  },
+
+  // ==========================================
+  // New All-in-One File Utility Tools APIs
+  // ==========================================
+
+  /**
+   * 1. Reduce image size
+   */
+  async reduceImageSize({ files, quality, targetSizeKB, maxWidth, maxHeight, format, onUploadProgress, cancelSignal }) {
+    const formData = new FormData();
+    for (const f of files) formData.append('images', f);
+    if (quality) formData.append('quality', quality);
+    if (targetSizeKB) formData.append('targetSizeKB', targetSizeKB);
+    if (maxWidth) formData.append('maxWidth', maxWidth);
+    if (maxHeight) formData.append('maxHeight', maxHeight);
+    if (format) formData.append('format', format);
+
+    const res = await apiClient.post('/tools/image-reducer', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      onUploadProgress,
+      signal: cancelSignal
+    });
+    return res.data;
+  },
+
+  /**
+   * 2. Passport photo generator
+   */
+  async generatePassportPhoto({ file, presetKey, customWidth, customHeight, bgColorKey, copiesOnA4, onUploadProgress, cancelSignal }) {
+    const formData = new FormData();
+    formData.append('photo', file);
+    if (presetKey) formData.append('presetKey', presetKey);
+    if (customWidth) formData.append('customWidth', customWidth);
+    if (customHeight) formData.append('customHeight', customHeight);
+    if (bgColorKey) formData.append('bgColorKey', bgColorKey);
+    if (copiesOnA4) formData.append('copiesOnA4', copiesOnA4);
+
+    const res = await apiClient.post('/tools/passport-photo', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      onUploadProgress,
+      signal: cancelSignal
+    });
+    return res.data;
+  },
+
+  /**
+   * 3. PDF to Word converter
+   */
+  async convertPdfToWord({ file, enableOcr, onUploadProgress, cancelSignal }) {
+    const formData = new FormData();
+    formData.append('pdf', file);
+    if (enableOcr) formData.append('enableOcr', 'true');
+
+    const res = await apiClient.post('/tools/pdf-to-word', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      onUploadProgress,
+      signal: cancelSignal
+    });
+    return res.data;
+  },
+
+  /**
+   * 4. Word to Excel converter
+   */
+  async convertWordToExcel({ file, onUploadProgress, cancelSignal }) {
+    const formData = new FormData();
+    formData.append('document', file);
+
+    const res = await apiClient.post('/tools/word-to-excel', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      onUploadProgress,
+      signal: cancelSignal
+    });
+    return res.data;
+  },
+
+  /**
+   * 5. PDF to ZIP converter
+   */
+  async bundlePdfsToZip({ files, customZipName, onUploadProgress, cancelSignal }) {
+    const formData = new FormData();
+    for (const f of files) formData.append('pdfs', f);
+    if (customZipName) formData.append('customZipName', customZipName);
+
+    const res = await apiClient.post('/tools/pdf-to-zip', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      onUploadProgress,
+      signal: cancelSignal
+    });
+    return res.data;
+  },
+
+  /**
+   * 6. ZIP Extractor
+   */
+  async extractZip({ file, onUploadProgress, cancelSignal }) {
+    const formData = new FormData();
+    formData.append('zipFile', file);
+
+    const res = await apiClient.post('/tools/zip-extractor', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      onUploadProgress,
+      signal: cancelSignal
+    });
+    return res.data;
+  },
+
+  /**
+   * 7. Image Format Converter
+   */
+  async convertImageFormat({ files, targetFormat, quality, onUploadProgress, cancelSignal }) {
+    const formData = new FormData();
+    for (const f of files) formData.append('images', f);
+    if (targetFormat) formData.append('targetFormat', targetFormat);
+    if (quality) formData.append('quality', quality);
+
+    const res = await apiClient.post('/tools/image-converter', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      onUploadProgress,
+      signal: cancelSignal
+    });
+    return res.data;
+  },
+
+  /**
+   * 8. Video to Image Converter
+   */
+  async extractVideoImages({ file, mode, timestamp, intervalSeconds, contactSheetCols, onUploadProgress, cancelSignal }) {
+    const formData = new FormData();
+    formData.append('video', file);
+    if (mode) formData.append('mode', mode);
+    if (timestamp) formData.append('timestamp', timestamp);
+    if (intervalSeconds) formData.append('intervalSeconds', intervalSeconds);
+    if (contactSheetCols) formData.append('contactSheetCols', contactSheetCols);
+
+    const res = await apiClient.post('/tools/video-to-image', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      onUploadProgress,
+      signal: cancelSignal
+    });
+    return res.data;
+  },
+
+  /**
+   * Generates download URL for tool outputs
+   */
+  getToolDownloadUrl(token, fileName) {
+    return `${API_BASE}/tools/download/${token}/${encodeURIComponent(fileName)}`;
   }
 };
 

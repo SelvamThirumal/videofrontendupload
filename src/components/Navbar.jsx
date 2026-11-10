@@ -1,9 +1,11 @@
 import React from 'react';
-import { Film, Sparkles, ShieldCheck, Zap } from 'lucide-react';
+import { Film, Sparkles, ShieldCheck, Zap, Wrench, Layers } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function Navbar() {
   const location = useLocation();
+  const isToolsActive = location.pathname.startsWith('/tools');
+  const isMergerActive = location.pathname === '/' || location.pathname.startsWith('/batch');
 
   return (
     <header className="sticky top-0 z-50 bg-navy-950/80 backdrop-blur-md border-b border-slate-800/80">
@@ -19,34 +21,53 @@ export default function Navbar() {
                 FASTBATCH
               </span>
               <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-brand-primary/20 text-brand-primary border border-brand-primary/30 uppercase tracking-wider">
-                Lossless v1.0
+                All-in-One
               </span>
             </div>
-            <p className="text-xs text-slate-400 font-medium">Smart Bulk Video Merger</p>
+            <p className="text-xs text-slate-400 font-medium">Smart File Tools & Video Merger</p>
           </div>
         </Link>
 
-        {/* Value Badges */}
-        <div className="hidden md:flex items-center gap-4 text-xs font-medium text-slate-400">
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-800">
-            <Zap className="w-3.5 h-3.5 text-amber-400" />
-            <span>Fast Stream Copy</span>
-          </div>
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-800">
+        {/* Central Nav Links */}
+        <nav className="flex items-center gap-1 sm:gap-2">
+          <Link
+            to="/"
+            className={`text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 ${
+              isMergerActive
+                ? 'bg-brand-primary/15 text-brand-primary border border-brand-primary/30 shadow-sm'
+                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
+            }`}
+          >
+            <Layers className="w-4 h-4" />
+            <span>Video Merger</span>
+          </Link>
+
+          <Link
+            to="/tools"
+            className={`text-xs sm:text-sm font-semibold px-3 sm:px-4 py-2 rounded-xl transition-all duration-200 flex items-center gap-2 ${
+              isToolsActive
+                ? 'bg-brand-secondary/20 text-brand-secondary border border-brand-secondary/40 shadow-sm'
+                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
+            }`}
+          >
+            <Wrench className="w-4 h-4 text-brand-secondary" />
+            <span>All Tools</span>
+            <span className="hidden sm:inline-block text-[10px] bg-brand-secondary/30 text-white px-1.5 py-0.2 rounded font-bold">
+              8 NEW
+            </span>
+          </Link>
+        </nav>
+
+        {/* Quick Actions */}
+        <div className="flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs font-medium text-slate-400">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
             <span>10-Min Auto Cleanup</span>
           </div>
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-800">
-            <Sparkles className="w-3.5 h-3.5 text-brand-secondary" />
-            <span>Smart Series Parser</span>
-          </div>
-        </div>
 
-        {/* Quick Reset / New Batch */}
-        <div className="flex items-center gap-3">
           <Link
             to="/"
-            className="text-xs font-semibold px-4 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 hover:text-white border border-slate-700 transition-colors"
+            className="text-xs font-semibold px-3.5 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-200 hover:text-white border border-slate-700 transition-colors"
           >
             New Batch
           </Link>
